@@ -1,8 +1,6 @@
 class BubbleSort
-  def compare_two_elements(previous, current, list)
-    if list[previous] > list[current]
-      list[previous], list[current] = list[current], list[previous]
-    end
+  def compare_two_elements(p, c, list)
+    list[p], list[c] = list[c], list[p] if list[p] > list[c]
   end
 
   def swap(list)
@@ -21,5 +19,5 @@ class BubbleSort
   end
 end
 
-sorter = BubbleSort.new
-p sorter.sort([4, 3, 7, 1, 2])
+# sorter = BubbleSort.new
+# p sorter.sort([4, 3, 7, 1, 2])

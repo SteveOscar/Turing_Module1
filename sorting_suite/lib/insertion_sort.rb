@@ -1,3 +1,4 @@
+require 'pry'
 class InsertionSort
   def find_insertion_point(sorted_array, i, num)
     loop do
@@ -15,7 +16,7 @@ class InsertionSort
   end
 
   def main_loop(sorted_array, unsorted_array)
-    loop do
+    while unsorted_array.length != 0
       i = 1
       num = unsorted_array.shift
       if num < sorted_array[0]
@@ -23,7 +24,6 @@ class InsertionSort
       else
         find_insertion_point(sorted_array, i, num)
       end
-      break if unsorted_array.length == 0
     end
   end
 
@@ -37,5 +37,5 @@ class InsertionSort
   end
 end
 
-# sorter = InsertionSort.new
-# puts sorter.sort([4, 2, 0, 18, 101, 3, 1])
+ # sorter = InsertionSort.new
+ # puts sorter.sort([4, 2, 0, 18, 101, 3, 1])

@@ -3,7 +3,6 @@ require 'minitest/autorun'
 require './lib/merge_sort'
 
 class MergeTest < Minitest::Test
-
   def test_empty_array
     array = MergeSort.new
     assert_equal [], array.sort([])
@@ -24,4 +23,13 @@ class MergeTest < Minitest::Test
     assert_equal %w(car plane tank truck), array.sort(%w(car truck plane tank))
   end
 
+  def test_presorted
+    array = MergeSort.new
+    assert_equal [1, 2, 3, 4], array.sort([1, 2, 3, 4])
+  end
+
+  def test_zeroes
+    array = MergeSort.new
+    assert_equal [0, 0, 0, 0], array.sort([0, 0, 0, 0])
+  end
 end

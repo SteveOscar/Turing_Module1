@@ -2,9 +2,7 @@ require 'minitest'
 require 'minitest/autorun'
 require './lib/bubble_sort'
 
-
 class BubbleTest < Minitest::Test
-
   def test_empty_array
     array = BubbleSort.new
     assert_equal [], array.sort([])
@@ -25,4 +23,8 @@ class BubbleTest < Minitest::Test
     assert_equal %w(car plane tank truck), array.sort(%w(car truck plane tank))
   end
 
+  def test_presorted
+    array = BubbleSort.new
+    assert_equal [1, 2, 3, 4], array.sort([1, 2, 3, 4])
+  end
 end

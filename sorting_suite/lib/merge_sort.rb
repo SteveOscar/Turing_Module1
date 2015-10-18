@@ -5,7 +5,6 @@ class MergeSort
     m = list.length / 2
     left = list[0..(m - 1)]
     right = list[m..-1]
-
     merge(sort(left), sort(right))
   end
 
@@ -22,5 +21,5 @@ class MergeSort
   end
 end
 
-sorter = MergeSort.new
-puts sorter.sort([100, 0, 3, 2, 1, 4])
+# sorter = MergeSort.new
+# puts sorter.sort([100, 0, 3, 2, 1, 4])
