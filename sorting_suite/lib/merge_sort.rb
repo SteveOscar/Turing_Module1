@@ -1,11 +1,8 @@
 require 'pry'
 class MergeSort
-
   def sort(list)
     return list if list.length == 1 || list == []
     m = list.length / 2
-    left = []
-    right = []
     left = list[0..(m - 1)]
     right = list[m..-1]
 
@@ -24,8 +21,6 @@ class MergeSort
     sorted_array + left + right
   end
 end
-
-
 
 sorter = MergeSort.new
 puts sorter.sort([100, 0, 3, 2, 1, 4])
