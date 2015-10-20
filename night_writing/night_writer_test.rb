@@ -1,30 +1,21 @@
+require 'pry'
 require 'minitest'
 require 'minitest/autorun'
 require './night_write'
 
 class NightWriterTest < Minitest::Test
-  def test_file_import
-    skip
-    message = NightWriter.new
-    assert_equal 'abc', message.read
-  end
-
   def test_encoding_letters
     text = 'abc'
-    message = NightWriter.new
-    assert_equal "0.0.00\n..0...\n......\n",
-    message.encode_to_braille(text)
+    night = NightWriter.new
+    message = night.encode_to_braille(text)
+    assert_equal "0.0.00\n..0...\n......\n", message
   end
 
-  def test_write_file
+  def test_encoding_numbers
     skip
-    message = NightWriter.new
-    assert_equal 'abc', message.read
-  end
-
-  def test_hash
-    skip
-    message = NightWriter.new
-    assert_equal "['0.', '..', '..']", @dots["a"]
+    text = '783'
+    night = NightWriter.new
+    message = night.encode_to_braille(text)
+    assert_equal "0.0.00\n..0...\n......\n", message
   end
 end

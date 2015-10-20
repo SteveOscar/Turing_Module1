@@ -11,7 +11,7 @@ class NightWriter
 
   def initialize
     @reader = FileReader.new
-    @text = @reader.read
+    @text = @reader
     @braille = ''
     @dots = {"a" => ['0.', '..', '..'], "b" => ['0.', '0.', '..'], "c" => ['00', '..', '..'],
             "d" => ['00', '.0', '..'], "e" => ['0.', '.0', '..'], "f" => ['00', '0.', '..'],
@@ -26,9 +26,8 @@ class NightWriter
   end
 
 
-  def encode_to_braille(file) #added file argument and changed @text to file
+  def encode_to_braille(file)
     line0, line1, line2 = '', '', ''
-    binding.pry
     file.each_char { |char| line0 << @dots[char][0] }
     file.each_char { |char| line1 << @dots[char][1] }
     file.each_char { |char| line2 << @dots[char][2] }
@@ -36,11 +35,6 @@ class NightWriter
     # write_file(line0, line1, line2)
     output_file
   end
-
-  # def write_file(line0, line1, line2)
-  #   @braille << line0 + "\n" + line1 + "\n" + line2 + "\n"
-  #   output_file()
-  # end
 
   def output_file
     out = File.open("output.txt", "w")
@@ -56,5 +50,3 @@ if __FILE__ == $0
   file = night.reader.read
   night.encode_to_braille(file)
 end
-
-#message.encode_to_braille
