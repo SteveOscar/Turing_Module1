@@ -25,27 +25,36 @@ class NightWriter
             }
   end
 
-  def encode_to_braille
+
+  def encode_to_braille(file) #added file argument and changed @text to file
     line0, line1, line2 = '', '', ''
-    @text.each_char { |char| line0 << @dots[char][0] }
-    @text.each_char { |char| line1 << @dots[char][1] }
-    @text.each_char { |char| line2 << @dots[char][2] }
-    write_file(line0, line1, line2)
+    binding.pry
+    file.each_char { |char| line0 << @dots[char][0] }
+    file.each_char { |char| line1 << @dots[char][1] }
+    file.each_char { |char| line2 << @dots[char][2] }
+    @braille << line0 + "\n" + line1 + "\n" + line2 + "\n"
+    # write_file(line0, line1, line2)
+    output_file
   end
 
-  def write_file(line0, line1, line2)
-    @braille << line0 + "\n" + line1 + "\n" + line2 + "\n"
-    output_file()
-  end
+  # def write_file(line0, line1, line2)
+  #   @braille << line0 + "\n" + line1 + "\n" + line2 + "\n"
+  #   output_file()
+  # end
 
   def output_file
     out = File.open("output.txt", "w")
     out.write(@braille)
     puts "Created filename containing #{@braille.length / 2} characters"
+    @braille
   end
 
 end
 
-message = NightWriter.new
-#
-message.encode_to_braille
+if __FILE__ == $0
+  night = NightWriter.new
+  file = night.reader.read
+  night.encode_to_braille(file)
+end
+
+#message.encode_to_braille
