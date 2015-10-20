@@ -7,6 +7,7 @@ class NightWriter
   attr_reader :reader, :braille, :dots
 
   def initialize
+    @braille = ''
     @dots = {"a" => ['0.', '..', '..'], "b" => ['0.', '0.', '..'], "c" => ['00', '..', '..'],
             "d" => ['00', '.0', '..'], "e" => ['0.', '.0', '..'], "f" => ['00', '0.', '..'],
             "g" => ['00', '00', '..'], "h" => ['0.', '00', '..'], "i" => ['.0', '0.', '..'],
@@ -37,22 +38,17 @@ class NightWriter
   end
 
   def encode_to_braille
-    @braille = ''
-    line1 = ''
-    line2 = ''
-    line3 = ''
+    line0, line1, line2 = '', '', ''
     @reader.each_char do |char|
-       line1 << @dots[char][0]
+       line0 << @dots[char][0]
     end
     @reader.each_char do |char|
-       line2 << @dots[char][1]
+       line1 << @dots[char][1]
     end
     @reader.each_char do |char|
-       line3 << @dots[char][2]
+       line2 << @dots[char][2]
     end
-    @braille << line1 + "\n"
-    @braille << line2 + "\n"
-    @braille << line3 + "\n"
+    @braille << line0 + "\n" + line1 + "\n" + line2 + "\n"
   end
 end
 
