@@ -1,12 +1,17 @@
 require 'pry'
-# class FileReader
-#
-# end
+class FileReader
+  def read
+    filename = ARGV[0]
+    File.read(filename)
+  end
+end
 
 class NightWriter
-  attr_reader :reader, :braille, :dots
+  attr_reader :reader, :writer, :braille, :dots
 
   def initialize
+    @reader = FileReader.new
+    @text = @reader.read
     @braille = ''
     @dots = {"a" => ['0.', '..', '..'], "b" => ['0.', '0.', '..'], "c" => ['00', '..', '..'],
             "d" => ['00', '.0', '..'], "e" => ['0.', '.0', '..'], "f" => ['00', '0.', '..'],
@@ -20,41 +25,27 @@ class NightWriter
             }
   end
 
-  def read(filename)
-    @reader = File.read(filename)
+  def encode_to_braille
+    line0, line1, line2 = '', '', ''
+    @text.each_char { |char| line0 << @dots[char][0] }
+    @text.each_char { |char| line1 << @dots[char][1] }
+    @text.each_char { |char| line2 << @dots[char][2] }
+    write_file(line0, line1, line2)
   end
 
-  def write_file
+  def write_file(line0, line1, line2)
+    @braille << line0 + "\n" + line1 + "\n" + line2 + "\n"
+    output_file()
+  end
+
+  def output_file
     out = File.open("output.txt", "w")
     out.write(@braille)
     puts "Created filename containing #{@braille.length / 2} characters"
   end
 
-  def encode_file_to_braille
-    # I wouldn't worry about testing this method
-    # unless you get everything else done
-    plain = reader.read
-    braille = encode_to_braille
-  end
-
-  def encode_to_braille
-    line0, line1, line2 = '', '', ''
-    @reader.each_char do |char|
-       line0 << @dots[char][0]
-    end
-    @reader.each_char do |char|
-       line1 << @dots[char][1]
-    end
-    @reader.each_char do |char|
-       line2 << @dots[char][2]
-    end
-    @braille << line0 + "\n" + line1 + "\n" + line2 + "\n"
-  end
 end
 
-
 message = NightWriter.new
-
-message.read('message.txt')
+#
 message.encode_to_braille
-message.write_file
